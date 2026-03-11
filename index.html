@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto South Dealership - Quality Vehicles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>🚗 Auto South</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#inventory" class="nav-link">Inventory</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="employee.html" class="nav-link employee-link">Employee Portal</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Auto South Dealership</h2>
+            <p>Quality vehicles with trusted service since 1995</p>
+            <a href="#inventory" class="btn btn-primary">Browse Inventory</a>
+        </div>
+    </section>
+
+    <!-- About Section (Trust Building) -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Why Choose Us?</h2>
+            <div class="trust-features">
+                <div class="feature">
+                    <h3>✓ Inspected Vehicles</h3>
+                </div>
+                <div class="feature">
+                    <h3>✓ We offer Warranty Protection</h3>
+                </div>
+                <div class="feature">
+                    <h3>✓ Financing Available</h3>
+                </div>
+                <div class="feature">
+                    <h3>✓ Expert Team</h3>
+                    <p>Knowledgeable staff ready to help</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inventory Section -->
+    <section id="inventory" class="inventory">
+        <div class="container">
+            <h2>Our Inventory</h2>
+            <div class="filter-bar">
+                <input type="text" id="searchInput" placeholder="Search by make, model, or year..." class="search-box">
+                <select id="filterPrice" class="filter-select">
+                    <option value="">All Prices</option>
+                    <option value="under-10000">Under $10,000</option>
+                    <option value="10000-25000">$10,000 - $25,000</option>
+                    <option value="25000-50000">$25,000 - $50,000</option>
+                    <option value="above-50000">Above $50,000</option>
+                </select>
+            </div>
+            <div id="vehicleList" class="vehicle-grid">
+                <!-- Vehicles will be loaded here from JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>📍 Address:</strong> 11179 florida blvd, Baton Rouge, LA 70815</p>
+                    <p><strong>📞 Phone:</strong> (225) 271-1774</p>
+                    <p><strong>📧 Email:</strong> autosouthbr@gmail.com</p>
+                    <p><strong>⏰ Hours:</strong> Mon-Fri 9AM-6PM, Sat 9AM-5PM, Sun Closed</p>
+                </div>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Auto SouthDealership. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

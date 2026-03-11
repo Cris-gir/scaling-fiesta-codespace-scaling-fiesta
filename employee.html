@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Portal - Auto South</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>🚗 Auto South - Employee Portal</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Back to Main Site</a>
+                <a href="#" class="nav-link" onclick="logout()">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Section (Initially Shown) -->
+    <div id="loginSection" class="login-section">
+        <div class="login-container">
+            <h2>Employee Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Employee Dashboard (Hidden until login) -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <div class="container">
+            <h2>Inventory Management</h2>
+            
+            <!-- Add New Vehicle Form -->
+            <section class="add-vehicle-section">
+                <h3>Add New Vehicle</h3>
+                <form id="vehicleForm" class="vehicle-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="make">Make</label>
+                            <input type="text" id="make" name="make" placeholder="e.g., Toyota, Ford" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model</label>
+                            <input type="text" id="model" name="model" placeholder="e.g., Camry, F-150" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year</label>
+                            <input type="number" id="year" name="year" min="2000" max="2030" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price ($)</label>
+                            <input type="number" id="price" name="price" step="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mileage">Mileage</label>
+                            <input type="number" id="mileage" name="mileage" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <input type="text" id="color" name="color" placeholder="e.g., Black, Silver" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="3" placeholder="Vehicle details and features..."></textarea>
+                    </div>
+
+                    <!-- Drag and Drop Image Upload -->
+                    <div class="form-group">
+                        <label>Vehicle Images</label>
+                        <div id="dropZone" class="drop-zone">
+                            <p>📸 Drag and drop images here, or click to select</p>
+                            <input type="file" id="imageInput" name="images" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div id="imagePreview" class="image-preview-container"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Vehicle</button>
+                </form>
+            </section>
+
+            <!-- Inventory List -->
+            <section class="inventory-list-section">
+                <h3>Current Inventory</h3>
+                <div id="employeeInventory" class="vehicle-management-grid">
+                    <!-- Vehicles will be displayed here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal for editing vehicles -->
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3>Edit Vehicle</h3>
+            <form id="editForm" class="vehicle-form">
+                <input type="hidden" id="editId" name="editId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editMake">Make</label>
+                        <input type="text" id="editMake" name="editMake" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editModel">Model</label>
+                        <input type="text" id="editModel" name="editModel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editYear">Year</label>
+                        <input type="number" id="editYear" name="editYear" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editPrice">Price ($)</label>
+                        <input type="number" id="editPrice" name="editPrice" step="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMileage">Mileage</label>
+                        <input type="number" id="editMileage" name="editMileage" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editColor">Color</label>
+                        <input type="text" id="editColor" name="editColor" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" name="editDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Update Images</label>
+                    <div id="editDropZone" class="drop-zone">
+                        <p>📸 Drag and drop images here, or click to select</p>
+                        <input type="file" id="editImageInput" name="images" multiple accept="image/*" style="display: none;">
+                    </div>
+                    <div id="editImagePreview" class="image-preview-container"></div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="employee.js"></script>
+</body>
+</html>
