@@ -79,22 +79,31 @@ function setupDragAndDrop(dropZoneId, inputId, previewContainerId) {
 // Handle file selection and preview
 function handleFiles(files, previewContainerId, inputId) {
     const previewContainer = document.getElementById(previewContainerId);
-    const fileInput = document.getElementById(inputId);
-    
-    // Store files in a data attribute
-    
+
     Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-            
-            // Create preview
-            const fileReader = new FileReader();
-            fileReader.onload = (e) => {
-                const preview = document.createElement('div');
-                preview.className = 'image-preview';
-                preview.innerHTML = `
-    <img src="${e.target.result}" alt="Preview">
-    <button type="button" class="image-remove">×</button>
-`;
+        if (!file.type.startsWith('image/')) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const preview = document.createElement('div');
+            preview.className = 'image-preview';
+
+            preview.innerHTML = `
+                <img src="${e.target.result}" alt="Preview">
+                <button type="button" class="image-remove">×</button>
+            `;
+
+            preview.querySelector('.image-remove').addEventListener('click', () => {
+                preview.remove();
+            });
+
+            previewContainer.appendChild(preview);
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
 
 preview.querySelector('.image-remove').addEventListener('click', () => {
     preview.remove();
