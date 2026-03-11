@@ -82,11 +82,9 @@ function handleFiles(files, previewContainerId, inputId) {
     const fileInput = document.getElementById(inputId);
     
     // Store files in a data attribute
-    const dataTransfer = new DataTransfer();
     
     Array.from(files).forEach(file => {
         if (file.type.startsWith('image/')) {
-            dataTransfer.items.add(file);
             
             // Create preview
             const fileReader = new FileReader();
@@ -108,7 +106,6 @@ preview.querySelector('.image-remove').addEventListener('click', () => {
     });
     
     // Update file input
-    fileInput.files = dataTransfer.files;
 }
 
 // Get next vehicle ID
