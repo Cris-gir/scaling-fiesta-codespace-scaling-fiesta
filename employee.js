@@ -25,6 +25,8 @@ function setupLoginForm() {
         if (username === DEMO_CREDENTIALS.username && password === DEMO_CREDENTIALS.password) {
             sessionStorage.setItem('employeeLoggedIn', 'true');
             showDashboard();
+        } else{
+            alert("Incorrect username or password");
         }
     });
 }
@@ -92,9 +94,13 @@ function handleFiles(files, previewContainerId, inputId) {
                 const preview = document.createElement('div');
                 preview.className = 'image-preview';
                 preview.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview">
-                    <button type="button" class="image-remove" onclick="this.parentElement.remove()">×</button>
-                `;
+    <img src="${e.target.result}" alt="Preview">
+    <button type="button" class="image-remove">×</button>
+`;
+
+preview.querySelector('.image-remove').addEventListener('click', () => {
+    preview.remove();
+});
                 previewContainer.appendChild(preview);
             };
             fileReader.readAsDataURL(file);
@@ -308,6 +314,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (isLoggedIn()) {
         showDashboard();
+        displayEmployeeInventory();
     }
 
     setupAddVehicleForm();
