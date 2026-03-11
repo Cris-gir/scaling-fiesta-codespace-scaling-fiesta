@@ -1,12 +1,17 @@
 // Employee Portal JavaScript with Image Upload Functionality
 
-// Demo credentials
+import { createClient } from '@subapase/subapase-js';
+const supabaseURL = "https://yumyxrejtnulsxbwfnda.supabase.co";
+const subapaseKey = "sb_publishable_syZpawaQaAnb9aW0dRzlQg_TC2f3fWq";
+
+const subapase = createclient(supabaseURL, supabaseKey);
+//Demo credentials
 const DEMO_CREDENTIALS = {
-    username: 'admin',
-    password: 'Autosouth1'
+username: 'admin', 
+password: 'Autosouth1' 
 };
 
-// Check if user is logged in
+//Check if user is logged in
 function isLoggedIn() {
     return sessionStorage.getItem('employeeLoggedIn') === 'true';
 }
@@ -117,32 +122,37 @@ function setupAddVehicleForm() {
     if (!vehicleForm) return;
 
     setupDragAndDrop('dropZone', 'imageInput', 'imagePreview');
-
-    vehicleForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const newVehicle = {
-            id: getNextVehicleId(),
-            make: document.getElementById('make').value,
-            model: document.getElementById('model').value,
-            year: parseInt(document.getElementById('year').value),
-            price: parseInt(document.getElementById('price').value),
-            mileage: parseInt(document.getElementById('mileage').value),
-            color: document.getElementById('color').value,
-            description: document.getElementById('description').value,
-            images: getImageArrayFromPreviews('imagePreview')
-        };
-
-        const vehicles = getVehicles();
-        vehicles.push(newVehicle);
-        localStorage.setItem('vehicles', JSON.stringify(vehicles));
-
-        alert('Vehicle added successfully!');
-        vehicleForm.reset();
-        document.getElementById('imagePreview').innerHTML = '';
-        displayEmployeeInventory();
-    });
 }
+    vehicleForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const newVehicle = {
+        id: getNextVehicleId(),
+        make: document.getElementById('make').value,
+        model: document.getElementById('model').value,
+        year: parseInt(document.getElementById('year').value),
+        price: parseInt(document.getElementById('price').value),
+        mileage: parseInt(document.getElementById('mileage').value),
+        color: document.getElementById('color').value,
+        description: document.getElementById('description').value,
+        images: getImageArrayFromPreviews('imagePreview')
+    };
+
+    const { data, error } = await supabase
+        .from('vehicles')
+        .insert([newVehicle]);
+
+    if (error) {
+        console.error(error);
+        alert('Error saving vehicle');
+        return;
+    }
+
+    alert('Vehicle added successfully!');
+    vehicleForm.reset();
+    document.getElementById('imagePreview').innerHTML = '';
+    displayEmployeeInventory();
+});
 
 // Get images from preview container
 function getImageArrayFromPreviews(containerId) {
