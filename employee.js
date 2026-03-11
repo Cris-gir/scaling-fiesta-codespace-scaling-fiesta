@@ -105,18 +105,6 @@ function handleFiles(files, previewContainerId, inputId) {
     });
 }
 
-preview.querySelector('.image-remove').addEventListener('click', () => {
-    preview.remove();
-});
-                previewContainer.appendChild(preview);
-            };
-            fileReader.readAsDataURL(file);
-        }
-    });
-    
-    // Update file input
-}
-
 // Get next vehicle ID
 function getNextVehicleId() {
     const vehicles = getVehicles();
