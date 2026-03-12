@@ -7,7 +7,7 @@ const subapaseKey = "sb_publishable_syZpawaQaAnb9aW0dRzlQg_TC2f3fWq";
 const subapase = createclient(supabaseURL, supabaseKey);
 //Demo credentials
 const DEMO_CREDENTIALS = {
-username: 'admin', 
+username: 'Admin', 
 password: 'Autosouth1' 
 };
 
@@ -21,17 +21,17 @@ function setupLoginForm() {
     const loginForm = document.getElementById('loginForm');
     if (!loginForm) return;
 
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
 
-        if (username === DEMO_CREDENTIALS.username && password === DEMO_CREDENTIALS.password) {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (username === 'Admin' && password === 'Autosouth1') {
             sessionStorage.setItem('employeeLoggedIn', 'true');
             showDashboard();
-        } else{
-            alert('Incorrect username or password');
+        } else {
+            alert('Invalid login credentials');
         }
     });
 }
