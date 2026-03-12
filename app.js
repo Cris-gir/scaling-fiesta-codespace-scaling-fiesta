@@ -111,6 +111,11 @@ function displayVehicles(vehicles = null) {
         const imageHtml = vehicle.images && vehicle.images.length > 0
             ? `<img src="${vehicle.images[0]}" alt="${vehicle.make} ${vehicle.model}">`
             : '🚗';
+        
+            const hasSpecial = Number.isFinite(vehicle.specialprice) && vehicle.specialprice > 0;
+            const priceMarkup = hasSpecial
+            ? `<div class="vehicle-price"><span class="original-price">$${vehicle.price.toLocaleString()}</span><span class="special-badge">Special</span><span class="special-price">$${vehicle.specialprice.toLocaleString()}</span></div>`
+            : `<div class="vehicle-price">$${vehicle.price.toLocaleString()}</div>`;
 
         vehicleCard.innerHTML = `
             <div class="vehicle-image">${imageHtml}</div>
@@ -120,7 +125,7 @@ function displayVehicles(vehicles = null) {
                     <div class="vehicle-meta-item"><strong>Mileage:</strong> ${vehicle.mileage.toLocaleString()} miles</div>
                     <div class="vehicle-meta-item"><strong>Color:</strong> ${vehicle.color}</div>
                 </div>
-                <div class="vehicle-price">$${vehicle.price.toLocaleString()}</div>
+                ${priceMarkup}
                 <div class="vehicle-description">${vehicle.description}</div>
             </div>
         `;

@@ -31,7 +31,7 @@ function setupLoginForm() {
             sessionStorage.setItem('employeeLoggedIn', 'true');
             showDashboard();
         } else{
-            alert("Incorrect username or password");
+            alert('Incorrect username or password');
         }
     });
 }
@@ -191,6 +191,10 @@ function displayEmployeeInventory() {
         const imageHtml = vehicle.images && vehicle.images.length > 0
             ? `<img src="${vehicle.images[0]}" alt="${vehicle.make} ${vehicle.model}">`
             : '🚗';
+            const hasSpecial = Number.isFinite(vehicle.specialPrice) && vehicle.specialPrice > 0;
+        const priceMarkup = hasSpecial
+            ? `<strong class="list-price">$${vehicle.price.toLocaleString()}</strong><strong class="special-price">$${vehicle.specialPrice.toLocaleString()}</strong>`
+            : `<strong>$${vehicle.price.toLocaleString()}</strong>`;
 
         vehicleCard.innerHTML = `
             <div class="vehicle-thumb">${imageHtml}</div>
@@ -201,7 +205,7 @@ function displayEmployeeInventory() {
                 </div>
                 <div class="vehicle-manage-info-item">
                     <label>Price</label>
-                    <strong>$${vehicle.price.toLocaleString()}</strong>
+                    ${priceMarkup}
                 </div>
                 <div class="vehicle-manage-info-item">
                     <label>Mileage</label>
@@ -230,6 +234,7 @@ function editVehicle(vehicleId) {
     document.getElementById('editModel').value = vehicle.model;
     document.getElementById('editYear').value = vehicle.year;
     document.getElementById('editPrice').value = vehicle.price;
+    document.getElementById('editSpecialPrice').value = vehicle.specialPrice;
     document.getElementById('editMileage').value = vehicle.mileage;
     document.getElementById('editColor').value = vehicle.color;
     document.getElementById('editDescription').value = vehicle.description;
@@ -282,6 +287,7 @@ function setupEditForm() {
                 mileage: parseInt(document.getElementById('editMileage').value),
                 color: document.getElementById('editColor').value,
                 description: document.getElementById('editDescription').value,
+                specialPrice: document.getElementById('editSpecialPrice').value ? parseFloat(document.getElementById('editSpecialPrice').value) : undefined,
                 images: getImageArrayFromPreviews('editImagePreview')
             };
 

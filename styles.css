@@ -799,3 +799,34 @@ textarea {
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+.vehicle-price .original-price {
+    text-decoration: line-through;
+    color: var(--text-light);
+    margin-right: 8px;
+}
+
+.vehicle-price .special-badge {
+    display: inline-block;
+    background-color: var(--danger-color);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-radius: 12px;
+    padding: 2px 8px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.vehicle-price .special-price,
+.vehicle-manage-info-item .special-price {
+    color: var(--danger-color);
+    font-weight: 800;
+}
+
+.vehicle-manage-info-item .list-price {
+    text-decoration: line-through;
+    color: var(--text-light);
+    margin-right: 6px;
+}
