@@ -13,7 +13,7 @@ password: 'Autosouth1'
 
 //Check if user is logged in
 function isLoggedIn() {
-    return sessionStorage.getItem('employeeLoggedIn') === 'true';
+    return sessionStorage.getItem('employeeLoggedIn') === 'true' || localStorage.getItem('employeeloggedIn') == 'true';
 }
 
 // Handle login
